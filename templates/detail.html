@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ recipe.name }}的做法</h1>
+            <br>
+            <div class="card">
+              <img class="card-img-top" src="{{ imageurl }}"  alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ recipe.name }}</h5>
+                <p class="card-text">{{ message }}</p>
+                <a href="#" class="btn btn-primary">收藏</a>
+              </div>
+            </div>
+            <br>
+
+            <h3 style="color: deepskyblue">所需食材</h3>
+
+                <p>{{ recipe.ingredient }}</p>
+
+            <br>
+
+            <h3 style="color: deepskyblue">做法步骤</h3>
+
+            {{ step|safe }}
+
+        </div>
+
+        <div class="col-md-4">
+        <div class="list-group">
+
+            <h1>材料列表</h1>
+            {% for i in ingredient %}
+                <a href="{{ url_for('main.search',q=i) }}"><button type="button" class="list-group-item list-group-item-action">{{ i }}</button></a>
+            {% endfor %}
+    </div>
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block content %}
+
+{% block card %}
+       <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a href="#" class="nav-link disabled">菜谱分类 </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.new_recipe') }}" class="nav-link active">最新推荐</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.hot') }}" class="nav-link">热菜</a>
+        </li>
+    <li class="nav-item">
+            <a href="{{ url_for('main.cold') }}" class="nav-link">凉菜</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.main') }}" class="nav-link">主食</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.soup') }}" class="nav-link">汤羹</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.snack') }}" class="nav-link">小吃</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.west') }}" class="nav-link">西餐</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.bake') }}" class="nav-link">烘焙</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.selfmade') }}" class="nav-link">自制</a>
+        </li>
+
+
+    </ul>
+{% endblock %}
+
+
+{% endblock %}

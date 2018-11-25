@@ -1,0 +1,88 @@
+{% extends 'base_index.html' %}
+
+{% block content %}
+    <div class="page-header"><h1>KK菜谱大全 <small>(共有{{ count }}个菜谱被收录)</small></h1><h5 style="color: deepskyblue;">吃货的天堂，实时更新</h5></div>
+
+{#    <section class="banner">#}
+{#  <div class="homepage-banner">#}
+{#    <h1 class="homepage-banner__title">Find, install and publish Python packages with the Python Package Index</h1>#}
+{##}
+{#    <form class="search-form search-form--large search-form--fullwidth" action="/search/">#}
+{#      <label for="search" class="sr-only">Search PyPI</label>#}
+{#      <input id="search" class="search-form__search large-input" type="text" name="q" placeholder="Search projects">#}
+{#      <button type="submit" class="search-form__button">#}
+{#        <i class="fa fa-search" aria-hidden="true"></i>#}
+{#        <span class="sr-only">Search</span>#}
+{#      </button>#}
+{#    </form>#}
+{##}
+{#    <p class="homepage-banner__browse">Or <a href="/search/">browse projects</a></p>#}
+{#  </div>#}
+{#</section>#}
+
+
+
+    <br>
+
+{% block card %}
+       <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a href="#" class="nav-link disabled">菜谱分类 </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.new_recipe') }}" class="nav-link active">最新推荐</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.hot') }}" class="nav-link">热菜</a>
+        </li>
+    <li class="nav-item">
+            <a href="{{ url_for('main.cold') }}" class="nav-link">凉菜</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.main') }}" class="nav-link">主食</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.soup') }}" class="nav-link">汤羹</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.snack') }}" class="nav-link">小吃</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.west') }}" class="nav-link">西餐</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.bake') }}" class="nav-link">烘焙</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.selfmade') }}" class="nav-link">自制</a>
+        </li>
+
+
+    </ul>
+{% endblock %}
+
+        <br>
+    <div class="row">
+        {% if recipes %}
+            {% for recipe in recipes %}
+
+                    <div class="photo-card card col-sm-3" style="width: 20rem;">
+                        <a href="{{ url_for('main.detail',uid=recipe.uid) }}" class="card-thumbnail" target="blank">
+                            <img src="{{ recipe.imageurl }}" class="card-img-top" >
+
+                        </a>
+                        <div class="card-body">
+
+                            <p>{{ recipe.name }}</p>
+                        </div>
+                    </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+        <div class="pagination" align="center">
+{% from 'macros.html' import pager %}
+    {{ pager(pagination) }}
+        </div>
+{% endblock %}

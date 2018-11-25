@@ -1,0 +1,49 @@
+{% macro form_field(field) %}
+    {{ field.label }}<br>
+    {{ field(**kwargs) }}<br>
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro nav_link(endpoint,text) -%}
+    <li class="nav-item" {% if request.endpoint and request.endpoint==endpoint %}active{% endif %}>
+        <a class="nav-link" href="{{ url_for(endpoint,**kwargs) }}">{{ text }}</a>
+
+    </li>
+
+{%- endmacro %}
+
+{% macro pager(pagination,fragment='') %}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item" {% if not pagination.has_prev %}disabled{% endif %}>
+            <a href="{{ url_for(request.endpoint,page=pagination.prev_num,**kwargs)+'&q='+fragment if pagination.has_prev else '#' }}" class="page-link">
+                前一页
+            </a>
+        </li>
+        <li class="page-item" {% if not pagination.has_next %}disabled{% endif %}>
+            <a class="page-link" href="{{ url_for(request.endpoint,page=pagination.next_num,**kwargs)+'&q='+fragment if pagination.has_next else '#' }}">
+                下一页
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endmacro %}
+
+
+
+{% macro photo_card(photo) %}
+
+<div class="photo-card card col-sm-3" style="width: 20rem;">
+    <a href="#" class="card-thumbnail" target="blank">
+        <img src="{{ photo.imageurl }}" class="card-img-top" >
+
+    </a>
+    <div class="card-body">
+        <p>{{ photo.name }}</p>
+    </div>
+</div>
+{% endmacro %}

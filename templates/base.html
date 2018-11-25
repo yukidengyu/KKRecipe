@@ -1,0 +1,101 @@
+{% from 'macros.html' import nav_link %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}-KK菜谱大全</title>
+     {% block head %}
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+    <link rel="icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    {% endblock %}
+</head>
+<body>
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
+
+
+    <a class="navbar-brand" href="/">KK菜谱大全</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            {{ nav_link('main.index','首页') }}
+            {{ nav_link('main.index','菜谱') }}
+            {{ nav_link('main.index','食材') }}
+            {{ nav_link('main.index','关于') }}
+                    <form class="form-inline my-2 my-lg-0" action="{{ url_for('main.search') }}">
+            <input class="form-control mr-sm-2" type="search" placeholder="搜索菜谱、食材..." aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+        </ul>
+         <div class="navbar-nav ml-auto">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item" {% if request.endpoint and request.endpoint==endpoint %}active{% endif %}>
+                 <a class="nav-link" href="{{ url_for('auth.profile',username=current_user.username) }}">{{ current_user.username }}</a>
+
+                 </li>
+            {{ nav_link('auth.logout','注销') }}
+        {% else %}
+                    <a class="btn btn-outline-primary" href="{{ url_for('auth.login') }}">登录</a>&nbsp;&nbsp;
+                    <a class="btn btn-primary" href="{{ url_for('auth.register') }}">注册</a>
+        {% endif %}
+         </div>
+
+
+
+
+
+
+    </div>
+</div>
+</nav>
+
+{% endblock %}
+
+
+<main class="container">
+    <br>
+    {% for message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ message[0] }}" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message[1] }}
+    </div>
+    {% endfor %}
+    {% block content %} {% endblock %}
+
+</main>
+
+
+
+{% block scripts %}
+{{ moment.include_moment(local_js=url_for('static',filename='js/moment-with-locales.min.js')) }}
+{{ moment.locale(auto_detect=True) }}
+ <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block footer %}
+<center>
+<footer >
+            <small> &copy; 2018 <a href="http://www.baidu.com" title="Written by KK">KK</a> /
+            <a href="https://github.com/PythonerKK" title="Fork me on GitHub">GitHub</a> /
+            all right reserved.
+        </small>
+</footer>
+    </center>
+    {% endblock %}
+</body>
+</html>

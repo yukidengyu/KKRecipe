@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>确认账号</title>
+</head>
+<body>
+<h1>点击以下链接来完成注册</h1>
+<a href="{{ url_for('auth.confirm',token=token,_external=True) }}">{{ url_for('auth.confirm',token=token,_external=True) }}</a>
+
+</body>
+</html>

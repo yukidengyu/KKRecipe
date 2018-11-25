@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import photo_card with context %}
+{% block title %}{{ q }}{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>{{ q }}的搜索结果({{ results|length }})：</h1>
+    </div>
+
+
+        <div class="row">
+        {% if results %}
+            {% for result in results %}
+
+                    <div class="photo-card card col-sm-3" style="width: 20rem;">
+                        <a href="{{ url_for('main.detail',uid=result.uid) }}" class="card-thumbnail" target="blank">
+                            <img src="{{ result.imageurl }}" class="card-img-top" >
+
+                        </a>
+                        <div class="card-body">
+
+                            <a href="{{ url_for('main.detail',uid=result.uid) }}"><h5>{{ result.name }}</h5></a>
+                            <p>材料：{{ result.ingredient }}</p>
+                        </div>
+                    </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+    {% if results %}
+        <div class="pagination" align="center">
+{% from 'macros.html' import pager %}
+    {{ pager(pagination,fragment=q) }}
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base_index.html' %}
+{% from 'macros.html' import photo_card with context %}
+{% block content %}
+
+
+
+{% block card %}
+       <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a href="#" class="nav-link disabled">菜谱分类 </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.new_recipe') }}" class="nav-link">最新推荐</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.hot') }}" class="nav-link">热菜</a>
+        </li>
+    <li class="nav-item">
+            <a href="{{ url_for('main.cold') }}" class="nav-link">凉菜</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('main.main') }}" class="nav-link">主食</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.soup') }}" class="nav-link active">汤羹</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.snack') }}" class="nav-link">小吃</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.west') }}" class="nav-link">西餐</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.bake') }}" class="nav-link">烘焙</a>
+        </li>
+              <li class="nav-item">
+            <a href="{{ url_for('main.selfmade') }}" class="nav-link">自制</a>
+        </li>
+
+
+    </ul>
+{% endblock %}
+    <br>
+    <div class="row">
+        {% if recipes %}
+            {% for recipe in recipes %}
+
+                    <div class="photo-card card col-sm-3" style="width: 20rem;">
+                        <a href="{{ url_for('main.detail',uid=recipe.uid) }}" class="card-thumbnail" target="blank">
+                            <img src="{{ recipe.imageurl }}" class="card-img-top" >
+
+                        </a>
+                        <div class="card-body">
+
+                            <p>{{ recipe.name }}</p>
+                        </div>
+                    </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+        <div class="pagination" align="center">
+{% from 'macros.html' import pager %}
+    {{ pager(pagination) }}
+        </div>
+
+{% endblock %}

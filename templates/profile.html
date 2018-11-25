@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}个人中心{% endblock %}
+
+{% block content %}
+    <div class="page-header"><h1>个人信息</h1></div>
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <img src="{{ user.gravatar }}" class="img-fluid rounded avatar-1">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <p class="card-text">{{ user.email }}</p>
+                    <a href="#" class="card-link">更换邮箱</a>
+                    <a href="#" class="card-link">删除账号</a>
+                  </div>
+                </div>
+        </div>
+
+        <div class="col-md-8">
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
